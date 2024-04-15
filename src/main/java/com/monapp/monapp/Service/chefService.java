@@ -14,19 +14,19 @@ public class chefService {
     @Autowired
   private CongeRepo congeRepo;
 
-    public Conge refuseConge(int congeId) {
+    public Conge refuseConge(Long congeId) {
         Optional<Conge> optionalConge = congeRepo.findById(congeId);
             Conge conge = optionalConge.get();
             conge.setStatut("Refusé");
             return congeRepo.save(conge);
     }
-    public Conge confirmerConge(int congeId) {
+    public Conge confirmerConge(Long congeId) {
         Optional<Conge> optionalConge = congeRepo.findById(congeId);
         Conge conge = optionalConge.get();
         conge.setStatut("Confirmé");
         return congeRepo.save(conge);
     }
-    public User getuser(int congeId){
+    public User getuser(Long congeId){
         Optional<Conge> optionalConge = congeRepo.findById(congeId);
         Conge conge = optionalConge.get();
         return conge.getUser();

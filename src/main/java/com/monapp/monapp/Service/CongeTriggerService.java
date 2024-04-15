@@ -29,7 +29,7 @@ public class CongeTriggerService {
                     "DECLARE chef_id INT; " +
                     "DECLARE notification_subject VARCHAR(255); " +
                     "DECLARE notification_content TEXT; " +
-                    "SELECT id INTO chef_id FROM user WHERE role = 1 AND service = " +
+                    "SELECT id INTO chef_id FROM user WHERE role = 'CHEF' AND service = " +
                     "(SELECT service FROM user WHERE id = NEW.user_id); " +
                     "SET notification_subject = 'Demande de congé'; " +
                     "SET notification_content = CONCAT(" +
@@ -44,8 +44,8 @@ public class CongeTriggerService {
                             "") +
                     "'File : ', NEW.file, '\n', " +
                     "'Solde : ', NEW.solde); " +
-                    "INSERT INTO notification (sender_id, recipient_id, subject, content) " +
-                    "VALUES (NEW.user_id, chef_id, notification_subject, notification_content); " +
+                    "INSERT INTO notification (sender_id, recipient_id, sent_at,subject, content) " +
+                    "VALUES (NEW.user_id, chef_id  , NOW(), notification_subject,notification_content); " +
                     "END;";
             jdbcTemplate.execute(triggerQuery);
         }
